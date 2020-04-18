@@ -1,13 +1,8 @@
 var objectkey;
 var objectval;
 
-$( "form" ).submit(function( event ) {
-  console.log(1)
-});
-
 document.getElementById("fileUpload").addEventListener("change", function(event) {
     selectedFile = event.target.files[0];
-    console.log($('input').val())
 });
 document.getElementById("ds").addEventListener("click", function() {
     if (selectedFile) {
