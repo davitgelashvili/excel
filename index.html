@@ -20,43 +20,6 @@
             <div class="select">
 
             </div>
-        
-            <!-- <select id="literi">
-                <option value="">ლიტერი</option>
-            </select>
-            <select id="kvartali">
-                <option value="">კვარტალი</option>
-            </select>
-            <select id="martvis_organo">
-                <option value="">მართვის ორგანო</option>
-            </select>
-            <select id="expozicia">
-                <option value="">ექსპოზიცია</option>
-            </select>
-            <select id="test1">
-                <option value="">ტესტ1</option>
-            </select>
-            <select id="chris_procenti">
-                <option value="">ჭრის პროცენტი</option>
-            </select>
-            <select id="daqaneba">
-                <option value="">დაქანება ( გრადუსი )</option>
-            </select>
-            <select id="tyis_sixshire">
-                <option value="">ტყის სიხშირე</option>
-            </select>
-            <select id="szd">
-                <option value="">ს.ზდ</option>
-            </select>
-            <select id="satyeo_ubani">
-                <option value="">სატყეო უბანი</option>
-            </select>
-            <select id="xnovaneba">
-                <option value="">ხნოვანება ( წელი )</option>
-            </select>
-            <select id="satyeoebi">
-                <option value="">სატყეოები</option>
-            </select> -->
 
         </div>
     </div>
@@ -69,5 +32,33 @@
             
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.3/xlsx.full.min.js"></script>
     <script src="js/main.js"></script>
+    <script>
+        /* set up XMLHttpRequest */
+        var url = "base.xls";
+        var oReq = new XMLHttpRequest();
+        oReq.open("GET", url, true);
+        oReq.responseType = "arraybuffer";
+        
+        oReq.onload = function(e) {
+          var arraybuffer = oReq.response;
+        
+          /* convert data to binary string */
+          var data = new Uint8Array(arraybuffer);
+          var arr = new Array();
+          for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+          var bstr = arr.join("");
+        
+          /* Call XLSX */
+          var workbook = XLSX.read(bstr, {type:"binary"});
+        
+          /* DO SOMETHING WITH workbook HERE */
+          var first_sheet_name = workbook.SheetNames[0];
+          /* Get worksheet */
+          var worksheet = workbook.Sheets[first_sheet_name];
+          console.log(XLSX.utils.sheet_to_json(worksheet,{raw:true}));
+        }
+        
+        oReq.send();
+        </script>
 </body>
 </html>

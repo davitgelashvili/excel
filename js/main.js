@@ -13,7 +13,7 @@ document.getElementById("uploadExcel").addEventListener("click", function() {
         var workbook = XLSX.read(data, {
           type: "binary"
         });
-        console.log(workbook)
+        // console.log(workbook)
         workbook.SheetNames.forEach((sheet, index) => {
           let rowObject = XLSX.utils.sheet_to_row_object_array(
             workbook.Sheets[sheet]
