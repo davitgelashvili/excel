@@ -6,7 +6,7 @@ document.getElementById("fileUpload").addEventListener("change", function(event)
 });
 document.getElementById("uploadExcel").addEventListener("click", function() {
     if (selectedFile) {
-      var fileReader = new FileReader('../base.xls');
+      var fileReader = new FileReader();
       fileReader.onload = function(event) {
         var data = event.target.result;
 
