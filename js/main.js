@@ -4,7 +4,7 @@ var objectval;
 document.getElementById("fileUpload").addEventListener("change", function(event) {
     selectedFile = event.target.files[0];
 });
-document.getElementById("ds").addEventListener("click", function() {
+document.getElementById("uploadExcel").addEventListener("click", function() {
     if (selectedFile) {
       var fileReader = new FileReader('../base.xls');
       fileReader.onload = function(event) {
