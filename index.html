@@ -9,9 +9,12 @@
 <body>
 
     <div class="container">
-        <input type="file" id="fileUpload" accept=".xls,.xlsx" /><br />
-        <button type="button" id="uploadExcel">Convert</button>
-        <pre id="jsonData"></pre>
+
+        <form class="form">
+            <input type="file" id="fileUpload" accept=".xls,.xlsx" /><br />
+            <input type="button" type="submit" id="uploadExcel" value="convert">
+        </form>
+
         <div class="left-area">
 
             <div class="select">
@@ -59,18 +62,40 @@
     </div>
 
 
-
-
-
-
-
-
     
     
-    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
             
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.3/xlsx.full.min.js"></script>
     <script src="js/main.js"></script>
+    <script>
+        /* set up XMLHttpRequest */
+        var url = "base.xls";
+        var oReq = new XMLHttpRequest();
+        oReq.open("GET", url, true);
+        oReq.responseType = "arraybuffer";
+        
+        oReq.onload = function(e) {
+          var arraybuffer = oReq.response;
+        
+          /* convert data to binary string */
+          var data = new Uint8Array(arraybuffer);
+          var arr = new Array();
+          for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+          var bstr = arr.join("");
+        
+          /* Call XLSX */
+          var workbook = XLSX.read(bstr, {type:"binary"});
+        
+          /* DO SOMETHING WITH workbook HERE */
+          var first_sheet_name = workbook.SheetNames[0];
+          /* Get worksheet */
+          var worksheet = workbook.Sheets[first_sheet_name];
+          console.log(XLSX.utils.sheet_to_json(worksheet,{raw:true}));
+        }
+        
+        oReq.send();
+        </script>
 </body>
 </html>

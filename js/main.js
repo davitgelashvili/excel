@@ -1,11 +1,15 @@
 var objectkey;
 var objectval;
 
+$( "form" ).submit(function( event ) {
+  console.log(1)
+});
+
 document.getElementById("fileUpload").addEventListener("change", function(event) {
     selectedFile = event.target.files[0];
     console.log($('input').val())
 });
-document.getElementById("uploadExcel").addEventListener("click", function() {
+document.getElementById("ds").addEventListener("click", function() {
     if (selectedFile) {
       var fileReader = new FileReader('../base.xls');
       fileReader.onload = function(event) {
